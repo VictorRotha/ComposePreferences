@@ -1,5 +1,6 @@
 package de.victor.composepreferences.preferences
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,12 +19,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import de.victor.composepreferences.MainActivity.Companion.KEY_ONE
 import de.victor.composepreferences.MainActivity.Companion.KEY_TWO
 import de.victor.composepreferences.playground.datastore
 import de.victor.composepreferences.preferences.data.PreferenceData
 import kotlinx.coroutines.launch
+
+val Context.datastore: DataStore<Preferences> by preferencesDataStore("settings")
 
 @Composable
 fun PreferenceScreen(
@@ -42,6 +48,7 @@ fun PreferenceScreen(
                 commons = PreferenceData.Commons(
                     title = "Darkmode enabled",
                     summary = "Enable Darkmode",
+
                 ),
                 key = KEY_ONE,
                 default = true,
