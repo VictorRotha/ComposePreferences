@@ -49,7 +49,6 @@ fun TextPreferenceWidget(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
             .conditional(data.onClick != null, Modifier.clickable { data.onClick?.invoke() }),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start,

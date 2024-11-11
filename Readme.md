@@ -13,7 +13,7 @@ Currently supported Preferences:
 
 1. Initialize the DataStoreManager with a DataStore<Preferences> object
 2. Collect the preferences
-3. Create a composable and place the Preferences inside. The preferences 
+3. Create a composable and place the Preferences inside.
 
 ```kotlin
 
@@ -46,6 +46,39 @@ fun PreferenceScreen() {
     }
 }
 
+
+```
+
+## PreferenceGroup
+
+Use the PreferenceGroup composable to categorize preferences
+
+
+```kotlin
+
+PreferenceGroup(
+    title = "Group title",
+    icon = Icons.Default.Settings,
+    preferences = preferences,
+    dataStoreManager = DataStoreManager(context.datastore),
+    preferenceData = listOf(
+        PreferenceData.SwitchPreference(
+            commons = PreferenceData.Commons(
+                title = "Preference A",
+                summary = "Preference A Summary",
+                iconSpaceReserved = true),
+            key = "keyA",
+            default = true
+        ),
+        PreferenceData.TextPreference(
+            commons = PreferenceData.Commons(
+                title = "Preference B",
+                summary = "Preference B Summary",
+                icon = Icons.Default.Settings),
+        )
+
+    )
+)
 
 ```
 
