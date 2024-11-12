@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.tooling.preview.Preview
 import de.victor.composepreferences.preferences.data.PreferenceData
 
@@ -27,6 +28,7 @@ fun SwitchPreferenceWidget(
 
     ) {
         Switch(
+            modifier = Modifier.scale(.8f),
             checked = value,
             onCheckedChange = onValueChange,
             enabled = data.commons.enabled,
@@ -66,7 +68,6 @@ private fun SwitchPrevNoIcon() {
         data = PreferenceData.SwitchPreference(
             commons = PreferenceData.Commons(
                 title = "Show Hints",
-                summary = "Enable Hints",
                 enabled = true,
                 iconSpaceReserved = true,
             ),

@@ -2,9 +2,12 @@ package de.victor.composepreferences.preferences.widgets
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,6 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,29 +51,25 @@ fun TextPreferenceWidget(
             .fillMaxWidth()
             .padding(8.dp)
             .conditional(data.onClick != null, Modifier.clickable { data.onClick?.invoke() }),
-        verticalAlignment = Alignment.Top,
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start,
 
     ) {
 
-        if (commons.icon != null) {
+        val iconModifier = Modifier.padding(end = 8.dp).size(24.dp)
 
-            Icon(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .size(24.dp),
-                imageVector = commons.icon, contentDescription = null)
-
-        } else if (commons.iconSpaceReserved) {
-            Spacer(modifier = Modifier
-                .padding(end = 8.dp)
-                .size(24.dp))
-        }
+        if (commons.icon != null)
+            Icon(modifier = iconModifier,
+                imageVector = commons.icon,
+                contentDescription = null)
+        else if (commons.iconSpaceReserved)
+            Spacer(modifier = iconModifier)
 
         Column(
             modifier = modifier
                 .padding(end = 8.dp)
-                .weight(1f)
+                .weight(1f),
+            verticalArrangement = Arrangement.Center
 
         ) {
             Text(
@@ -108,34 +109,26 @@ private fun TextPreviewIconTrailing() {
                 summary = "Blah, Blah, Blah Blah, Blah, BlahBlah, Blah, Blah...   Blah, Blah, Blah ... Blah, Blah, Blah ... Blah, Blah, Blah ...",
                 icon = Icons.Default.AccountCircle,
             )),
-
-
             trailing = {
-            Switch(true, onCheckedChange = {})
-        }
+                Switch(
+                    modifier = Modifier.scale(.8f), checked = true, onCheckedChange = {})
 
+        }
     )
 
 }
 
 @Preview (showBackground = true)
 @Composable
-private fun TextPreviewTrailing() {
+private fun TextPreviewIconSpace() {
     TextPreferenceWidget(
         data = PreferenceData.TextPreference(
             commons = PreferenceData.Commons(
                 title = "License",
-                summary = "Blah, Blah, Blah ...",
                 iconSpaceReserved = true,
             ),
-
-        ),
-
-        trailing = {
-            Switch(true, onCheckedChange = {})
-    }
+        )
     )
-
 }
 
 @Preview (showBackground = true)
@@ -146,10 +139,7 @@ private fun TextPreviewNoSum() {
             commons = PreferenceData.Commons(
                 title = "Published under Creative Commons CC-0",
             ),
-
         )
-
     )
-
 }
 
