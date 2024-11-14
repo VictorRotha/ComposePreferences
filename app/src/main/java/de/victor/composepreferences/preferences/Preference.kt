@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import de.victor.composepreferences.preferences.data.PreferenceData
+import de.victor.composepreferences.preferences.widgets.DialogTextPreferenceWidget
 import de.victor.composepreferences.preferences.widgets.SwitchPreferenceWidget
 import de.victor.composepreferences.preferences.widgets.TextPreferenceWidget
 import kotlinx.coroutines.launch
@@ -29,6 +30,14 @@ fun Preference(
             )
         }
 
+        is PreferenceData.DialogTextPreference -> {
+            DialogTextPreferenceWidget(
+                modifier = modifier,
+                data = data
+            )
+
+        }
+
         is PreferenceData.SwitchPreference -> {
             val key = booleanPreferencesKey(data.key)
             SwitchPreferenceWidget(
@@ -39,6 +48,7 @@ fun Preference(
             )
 
         }
+
 
     }
 

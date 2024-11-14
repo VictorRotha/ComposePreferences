@@ -26,4 +26,13 @@ sealed class PreferenceData(
         val key: String,
         val default : Boolean = false,
     ) : PreferenceData(commons = commons)
+
+    data class DialogTextPreference(
+        override val commons: Commons,
+        val dialogTitle : String,
+        val dialogText: String,
+        val dialogButtonText: String,
+        val onConfirm : () -> Unit
+    ) : PreferenceData(commons = commons)
+
 }

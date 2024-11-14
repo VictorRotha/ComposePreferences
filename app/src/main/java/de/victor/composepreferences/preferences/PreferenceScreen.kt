@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
@@ -41,51 +42,69 @@ fun PreferenceScreen(
 
     val prefs by dataStoreManager.preferenceFlow.collectAsState(null)
 
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(modifier = modifier
+        .fillMaxSize()
+        .padding(8.dp)) {
 
-        Preference(
-            data = PreferenceData.SwitchPreference(
-                commons = PreferenceData.Commons(
-                    title = "Darkmode enabled",
-                    summary = "Enable Darkmode",
-
-                ),
-                key = KEY_ONE,
-                default = true,
-            ),
+        PreferenceGroup(
+            title = "Group A",
             preferences = prefs,
-            dataStoreManager = dataStoreManager
+            dataStoreManager = dataStoreManager,
+            preferenceData = listOf(
+                PreferenceData.SwitchPreference(
+                    commons = PreferenceData.Commons(
+                        title = "Darkmode enabled",
+                        summary = "Enable Darkmode",
+                        iconSpaceReserved = true
+
+                    ),
+                    key = KEY_ONE,
+                    default = true,
+                ),
+                PreferenceData.TextPreference(
+                    commons = PreferenceData.Commons(
+                        title = "Clickable Preference",
+                        summary = "Some Text ...",
+                        iconSpaceReserved = true,
+                    ),
+
+                    onClick = { Log.d("PreferenceScreen2",  "onClick Text Preference!")}
+                ),
+            )
+
         )
 
-        Preference(
-            data = PreferenceData.SwitchPreference(
-                commons = PreferenceData.Commons(
-                    title = "Another Switch",
-                    summary = "Some text to describe the Preference. Could be multiple lines.",
-                    icon = Icons.Default.Home,
-                ),
-
-                key = KEY_TWO,
-                default = true,
-            ),
+        PreferenceGroup(
+            modifier = Modifier.padding(top = 16.dp),
+            title = "Group B",
             preferences = prefs,
-            dataStoreManager = dataStoreManager
+            dataStoreManager = dataStoreManager,
+            preferenceData = listOf(
+                PreferenceData.SwitchPreference(
+                    commons = PreferenceData.Commons(
+                        title = "Another Switch",
+                        summary = "Some text to describe the Preference. Could be multiple lines.",
+                        icon = Icons.Default.Home,
+                    ),
+
+                    key = KEY_TWO,
+                    default = true,
+                    ),
+
+                PreferenceData.DialogTextPreference(
+                    commons = PreferenceData.Commons(
+                        title = "Show Dialog",
+                        summary = "Tap to show dialog",
+                        iconSpaceReserved = true
+                    ),
+                    dialogTitle = "Title",
+                    dialogText = "Text",
+                    dialogButtonText = "Confirm",
+                    onConfirm = { Log.d("PreferenceScreen2", "PreferenceScreen: Confirmed!") }
+                    ),
+                )
         )
 
-        Preference(
-            data = PreferenceData.TextPreference(
-                commons = PreferenceData.Commons(
-                    title = "Clickable Preference",
-                    summary = "Some Text ...",
-                    iconSpaceReserved = true,
-                ),
-
-                onClick = { Log.d("PreferenceScreen2",  "onClick Text Preference!")}
-            ),
-            preferences = prefs,
-            dataStoreManager = dataStoreManager
-
-        )
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -99,7 +118,6 @@ fun PreferenceScreen(
             }
         }) {
             Text(text = "Toggle Preference")
-
 
         }
     }

@@ -66,7 +66,7 @@ fun PreferenceGroup(
                 )
 
                HorizontalDivider(
-                    modifier = Modifier.padding(bottom = 16.dp, top = 8.dp),
+                    modifier = Modifier.padding(bottom = 8.dp, top = 8.dp),
                     thickness = 1.dp,
                     color = Color.Black
                 )
@@ -77,6 +77,7 @@ fun PreferenceGroup(
         for (data in preferenceData) {
 
             Preference(
+                modifier = Modifier.padding(top = 8.dp),
                 data = data,
                 preferences = preferences,
                 dataStoreManager = dataStoreManager
