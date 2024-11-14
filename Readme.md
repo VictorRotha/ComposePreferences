@@ -5,11 +5,11 @@ Preference functionality for compose projects. Preference values are stored in a
 Currently supported Preferences:
 
     - TextPreference: A Preference to display text without storing any data.
+    - DialogTextPrefernce: A TextPreference who shows an AlerDialog when clicked on.
     - SwitchPreference: Stores boolean data.
 
 
 ## Usage:
----
 
 1. Initialize the DataStoreManager with a DataStore<Preferences> object
 2. Collect the preferences
@@ -83,7 +83,6 @@ PreferenceGroup(
 ```
 
 ## Read data from DataStore
----
 
 Get all Preferences as flow from the DataStoreManager
 
@@ -106,7 +105,6 @@ val value = dataStoreManager.getPreferencew(key = stringPreferenceKey("myKey"), 
 ```
 
 ## Edit Data
----
 
 ```kotlin
 //suspending
